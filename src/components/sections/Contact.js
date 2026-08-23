@@ -368,7 +368,7 @@ export default function Contact() {
     'General Inquiry 👋'
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!name.trim()) newErrors.name = true;
@@ -382,16 +382,43 @@ export default function Contact() {
     }
     
     setStatus('sending');
-    setTimeout(() => {
-      setStatus('success');
-      setTimeout(() => {
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '064484a3-1670-4390-b936-7dc073f91886',
+          name: name.trim(),
+          email: email.trim(),
+          topic: selectedChip || 'General Inquiry',
+          message: message.trim(),
+          from_name: `${name.trim()} (via Portfolio)`,
+          subject: `New Portfolio Inquiry from ${name.trim()} [${selectedChip || 'General Inquiry'}]`,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus('success');
+        setTimeout(() => {
+          setStatus('idle');
+          setName('');
+          setEmail('');
+          setMessage('');
+          setSelectedChip(null);
+        }, 5000);
+      } else {
         setStatus('idle');
-        setName('');
-        setEmail('');
-        setMessage('');
-        setSelectedChip(null);
-      }, 4000);
-    }, 1200);
+        alert('Could not send message automatically. Please contact directly at shaikhzeeshan7554@gmail.com');
+      }
+    } catch (err) {
+      setStatus('idle');
+      alert('Could not send message automatically. Please contact directly at shaikhzeeshan7554@gmail.com');
+    }
   };
 
   const copyToClipboard = (text, fieldName) => {
