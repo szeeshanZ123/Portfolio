@@ -1,30 +1,24 @@
 'use client';
-import { useRef, useEffect } from 'react';
-import styled, { keyframes, useTheme } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useLanguage } from '@/context/LanguageContext';
-import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FiArrowUp, FiMail } from 'react-icons/fi';
 import LogoIcon from '@/components/Logo';
 import MagneticButton from '@/components/MagneticButton';
 
-/* ── Animations ── */
 const ticker = keyframes`from { transform: translateX(0); } to { transform: translateX(-50%); }`;
-const tickerRTL = keyframes`from { transform: translateX(0); } to { transform: translateX(50%); }`;
-const float = keyframes`0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}`;
 const pulse = keyframes`0%,100%{transform:scale(1);opacity:1}50%{transform:scale(0.9);opacity:0.5}`;
 const gradientShift = keyframes`
   0%,100%{background-position:0% 50%}
   50%{background-position:100% 50%}
 `;
 
-/* ── Outer wrapper ── */
 const FooterSection = styled.footer`
   position: relative;
   overflow: hidden;
   background: transparent;
 `;
 
-/* ── Big CTA area on top ── */
 const CtaArea = styled.div`
   position: relative;
   overflow: hidden;
@@ -66,9 +60,9 @@ const PulseDot = styled.span`
 
 const CtaTitle = styled.h2`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: -0.03em;
   margin-bottom: 1.25rem;
 `;
@@ -76,6 +70,7 @@ const CtaTitle = styled.h2`
 const CtaLine1 = styled.div`
   color: ${({ theme }) => theme.colors.text};
 `;
+
 const CtaLine2 = styled.div`
   background: ${({ theme }) => theme.colors.gradient};
   background-size: 200% 200%;
@@ -88,7 +83,7 @@ const CtaLine2 = styled.div`
 const CtaSub = styled.p`
   font-size: 1.05rem;
   color: ${({ theme }) => theme.colors.textMuted};
-  max-width: 460px; margin: 0 auto 2.5rem;
+  max-width: 500px; margin: 0 auto 2.5rem;
   line-height: 1.75;
 `;
 
@@ -103,6 +98,7 @@ const CtaBtn = styled.a`
   background: ${({ theme }) => theme.colors.gradient};
   background-size: 200% 200%; animation: ${gradientShift} 4s ease infinite;
   color: #fff;
+  text-decoration: none;
   &:hover { transform: translateY(-3px); box-shadow: 0 14px 40px ${({ theme }) => theme.colors.accentGlow}; }
 `;
 
@@ -113,6 +109,7 @@ const CtaBtnOutline = styled.a`
   border: 1.5px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.glass}; backdrop-filter: blur(10px);
   color: ${({ theme }) => theme.colors.text};
+  text-decoration: none;
   &:hover {
     border-color: ${({ theme }) => theme.colors.accent};
     color: ${({ theme }) => theme.colors.accent};
@@ -121,7 +118,6 @@ const CtaBtnOutline = styled.a`
   }
 `;
 
-/* ── Ticker ── */
 const TickerBar = styled.div`
   background: ${({ theme }) => theme.colors.gradient};
   background-size: 200% 200%;
@@ -131,17 +127,16 @@ const TickerBar = styled.div`
 
 const TickerTrack = styled.div`
   display: flex; gap: 3rem; width: max-content;
-  animation: ${({ $isRTL }) => ($isRTL ? tickerRTL : ticker)} 22s linear infinite;
+  animation: ${ticker} 22s linear infinite;
 `;
 
 const TickerText = styled.span`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
   font-weight: 700; white-space: nowrap;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.95);
 `;
 
-/* ── Main footer body ── */
 const FooterBody = styled.div`
   background: ${({ theme }) => theme.colors.bg};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -150,13 +145,12 @@ const FooterBody = styled.div`
 const FooterInner = styled.div`
   max-width: 1280px; margin: 0 auto; padding: 4rem 2rem 0;
   display: grid;
-  grid-template-columns: 2.2fr 1fr 1fr 1.2fr;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
   gap: 3rem;
   @media (max-width: 1024px) { grid-template-columns: 1fr 1fr; }
   @media (max-width: 600px) { grid-template-columns: 1fr; }
 `;
 
-/* Brand column */
 const BrandCol = styled.div``;
 
 const BrandRow = styled.div`
@@ -166,14 +160,13 @@ const BrandRow = styled.div`
 const BrandName = styled.span`
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: 1.25rem; font-weight: 700;
-  background: ${({ theme }) => theme.colors.gradientText};
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const BrandDesc = styled.p`
   font-size: 0.88rem;
   color: ${({ theme }) => theme.colors.textMuted};
-  line-height: 1.8; max-width: 300px; margin-bottom: 1.75rem;
+  line-height: 1.8; max-width: 320px; margin-bottom: 1.75rem;
 `;
 
 const FooterSocials = styled.div`display: flex; gap: 0.65rem; flex-wrap: wrap;`;
@@ -194,12 +187,12 @@ const SocialBtn = styled.a`
   }
 `;
 
-/* Nav column */
 const ColTitle = styled.h4`
   font-size: 0.8rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.25rem;
+  font-family: ${({ theme }) => theme.fonts.mono};
 `;
 
 const ColLink = styled.a`
@@ -207,6 +200,7 @@ const ColLink = styled.a`
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.textMuted};
   margin-bottom: 0.7rem; cursor: pointer; transition: all 0.25s ease;
+  text-decoration: none;
   &::before {
     content: ''; width: 0; height: 2px;
     background: ${({ theme }) => theme.colors.accent};
@@ -218,7 +212,6 @@ const ColLink = styled.a`
   }
 `;
 
-/* Status card */
 const StatusCard = styled.div`
   background: ${({ theme }) => theme.colors.bgSecondary};
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -231,6 +224,7 @@ const StatusTitle = styled.div`
   letter-spacing: 0.12em; text-transform: uppercase;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
+  font-family: ${({ theme }) => theme.fonts.mono};
 `;
 
 const StatusBadge = styled.div`
@@ -246,13 +240,14 @@ const GreenDot = styled.span`
 
 const EmailRow = styled.div`
   display: flex; align-items: center; gap: 0.4rem;
-  font-size: 0.8rem; color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 0.78rem; color: ${({ theme }) => theme.colors.textMuted};
   padding: 0.6rem 0.75rem;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.bg};
   margin-bottom: 1rem;
   word-break: break-all;
+  font-family: ${({ theme }) => theme.fonts.mono};
 `;
 
 const StatusBtn = styled.a`
@@ -261,10 +256,10 @@ const StatusBtn = styled.a`
   background: ${({ theme }) => theme.colors.gradient};
   background-size: 200% 200%; animation: ${gradientShift} 5s ease infinite;
   color: #fff; transition: all 0.3s ease;
+  text-decoration: none;
   &:hover { transform: translateY(-2px); box-shadow: 0 8px 24px ${({ theme }) => theme.colors.accentGlow}; }
 `;
 
-/* ── Bottom bar ── */
 const BottomBar = styled.div`
   max-width: 1280px; margin: 0 auto;
   padding: 1.5rem 2rem;
@@ -293,36 +288,43 @@ const BackToTop = styled.button`
   }
 `;
 
-const navLinks = ['about', 'skills', 'projects', 'testimonials', 'contact'];
+const navLinks = [
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'certifications', label: 'Certifications' },
+  { id: 'achievements', label: 'Activities' },
+  { id: 'contact', label: 'Contact' },
+];
 
 export default function Footer() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
-  const tickerItems = t('footer.ticker');
+  const tickerItems = [
+    'Data Analyst', '✦',
+    'Aspiring Data Scientist', '✦',
+    'Python Developer', '✦',
+    'Power BI & DAX', '✦',
+    'SQL & Relational DBs', '✦',
+    'Machine Learning', '✦',
+    'Open for Opportunities', '✦'
+  ];
 
   const handleClick = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const navLabels = {
-    about: t('nav.about'),
-    skills: t('nav.skills'),
-    projects: t('nav.projects'),
-    testimonials: t('nav.testimonials'),
-    contact: t('nav.contact'),
-  };
-
   return (
     <FooterSection>
-      {/* ── Big CTA ── */}
       <CtaArea>
         <BigBlob />
-        <CtaEyebrow><PulseDot /> {t('contact.availableStatus') || 'Available for freelance'}</CtaEyebrow>
+        <CtaEyebrow><PulseDot /> {t('contact.availableStatus')}</CtaEyebrow>
         <CtaTitle>
-          <CtaLine1>{t('footer.ctaLine1') || "Ready to build"}</CtaLine1>
-          <CtaLine2>{t('footer.ctaLine2') || "something amazing?"}</CtaLine2>
+          <CtaLine1>{t('footer.ctaLine1')}</CtaLine1>
+          <CtaLine2>{t('footer.ctaLine2')}</CtaLine2>
         </CtaTitle>
-        <CtaSub>{t('footer.ctaSub') || "Have a project concept or an idea you'd like to explore? Let's connect and turn your vision into reality."}</CtaSub>
+        <CtaSub>{t('footer.ctaSub')}</CtaSub>
         <CtaButtons>
           <MagneticButton>
             <CtaBtn href="#contact" onClick={e => { e.preventDefault(); handleClick('contact'); }}>
@@ -330,23 +332,21 @@ export default function Footer() {
             </CtaBtn>
           </MagneticButton>
           <MagneticButton>
-            <CtaBtnOutline href="https://github.com/ElMehdiBekkous" target="_blank">
+            <CtaBtnOutline href="https://github.com/szeeshanZ123" target="_blank" rel="noopener noreferrer">
               <FaGithub /> GitHub
             </CtaBtnOutline>
           </MagneticButton>
         </CtaButtons>
       </CtaArea>
 
-      {/* ── Ticker ── */}
       <TickerBar>
-        <TickerTrack $isRTL={isRTL}>
-          {Array.isArray(tickerItems) && [...tickerItems, ...tickerItems].map((text, i) => (
+        <TickerTrack>
+          {[...tickerItems, ...tickerItems].map((text, i) => (
             <TickerText key={i}>{text}</TickerText>
           ))}
         </TickerTrack>
       </TickerBar>
 
-      {/* ── Footer grid ── */}
       <FooterBody>
         <FooterInner>
           {/* Brand */}
@@ -357,44 +357,44 @@ export default function Footer() {
             </BrandRow>
             <BrandDesc>{t('footer.brandDesc')}</BrandDesc>
             <FooterSocials>
-              <SocialBtn href="https://github.com/ElMehdiBekkous" target="_blank" title="GitHub"><FaGithub /></SocialBtn>
-              <SocialBtn href="https://www.linkedin.com/in/el-mehdi-bekkous/" target="_blank" title="LinkedIn"><FaLinkedinIn /></SocialBtn>
-              <SocialBtn href="https://www.instagram.com/mehdibekkousse/" target="_blank" title="Instagram"><FaInstagram /></SocialBtn>
+              <SocialBtn href="https://github.com/szeeshanZ123" target="_blank" rel="noopener noreferrer" title="GitHub"><FaGithub /></SocialBtn>
+              <SocialBtn href="https://www.linkedin.com/in/zeeshan-shaikh-6b3a753a1" target="_blank" rel="noopener noreferrer" title="LinkedIn"><FaLinkedinIn /></SocialBtn>
             </FooterSocials>
           </BrandCol>
 
           {/* Quick links */}
           <div>
             <ColTitle>{t('footer.quickLinks')}</ColTitle>
-            {navLinks.map(id => (
-              <ColLink key={id} onClick={() => handleClick(id)}>{navLabels[id]}</ColLink>
+            {navLinks.map(link => (
+              <ColLink key={link.id} onClick={(e) => { e.preventDefault(); handleClick(link.id); }}>
+                {link.label}
+              </ColLink>
             ))}
           </div>
 
-          {/* Services */}
+          {/* Focus Areas */}
           <div>
-            <ColTitle>{t('footer.services')}</ColTitle>
-            <ColLink>{t('footer.webDev')}</ColLink>
-            <ColLink>{t('footer.uiux')}</ColLink>
-            <ColLink>{t('footer.apiDev')}</ColLink>
-            <ColLink>{t('footer.consulting')}</ColLink>
+            <ColTitle>{t('footer.focusAreas')}</ColTitle>
+            <ColLink>{t('footer.dataAnalytics')}</ColLink>
+            <ColLink>{t('footer.machineLearning')}</ColLink>
+            <ColLink>{t('footer.pythonDev')}</ColLink>
+            <ColLink>{t('footer.sqlDb')}</ColLink>
           </div>
 
           {/* Status card */}
           <StatusCard>
-            <StatusTitle>{t('footer.statusTitle') || 'Current Status'}</StatusTitle>
-            <StatusBadge><GreenDot /> {t('contact.availableStatus') || 'Available for freelance'}</StatusBadge>
-            <EmailRow><FiMail size={12} /> mehdi@example.com</EmailRow>
+            <StatusTitle>{t('footer.statusTitle')}</StatusTitle>
+            <StatusBadge><GreenDot /> {t('contact.availableStatus')}</StatusBadge>
+            <EmailRow><FiMail size={12} /> shaikhzeeshan7554@gmail.com</EmailRow>
             <StatusBtn href="#contact" onClick={e => { e.preventDefault(); handleClick('contact'); }}>
               {t('nav.letsTalk')} →
             </StatusBtn>
           </StatusCard>
         </FooterInner>
 
-        {/* Bottom bar */}
         <BottomBar>
           <Copyright>
-            {t('footer.copyright').replace('{year}', year)} <span>♡</span>
+            © {year} Zeeshan Shaikh. All rights reserved.
           </Copyright>
           <BackToTop onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             {t('footer.backToTop')} <FiArrowUp />

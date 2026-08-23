@@ -122,29 +122,29 @@ const CardDesc = styled.p`
 
 const contentData = {
   default: {
-    title: "Centre de Commande",
-    desc: "Survolez ou touchez les éléments de mon bureau pour explorer ma stack, mes projets et mon expérience. Bougez le curseur pour faire pivoter la caméra.",
-    icon: "🚀"
+    title: "Analytical Workspace",
+    desc: "B.Sc. IT student with practical experience in Data Analytics, Python, SQL, Power BI, and Machine Learning. Hover or tap items to explore.",
+    icon: "📊"
   },
   laptop: {
-    title: "Expertise Full-Stack",
-    desc: "Création d'applications web robustes avec Next.js, React, Node.js et Firebase. Du backend jusqu'à l'interface utilisateur.",
-    icon: "💻"
+    title: "Data Analytics & Python Stack",
+    desc: "Data cleaning, exploratory data analysis (EDA), statistical workflows, and dashboard modeling using Python, Pandas, NumPy, and SQL.",
+    icon: "🐍"
   },
   monitor: {
-    title: "Focus Actuel",
-    desc: "Exploration approfondie de l'IA, de Project IDX, et conception de solutions B2B intelligentes adaptées aux besoins réels.",
-    icon: "🖥️"
+    title: "Machine Learning & Research",
+    desc: "Predictive model engineering, regression and classification pipelines, and feature optimization using Scikit-learn.",
+    icon: "🤖"
   },
   coffee: {
-    title: "Le Carburant",
-    desc: "Transformation de la caféine en code propre et maintenable. Passionné par la résolution de problèmes et les rendus parfaits.",
+    title: "Analytical Problem Solving",
+    desc: "Translating messy, high-dimensional datasets into clean relational models, KPIs, and actionable visual narratives.",
     icon: "☕"
   },
   trophy: {
-    title: "Expérience",
-    desc: "Plus de 2 ans d'expérience professionnelle dans la réalisation d'applications de haute qualité, et le dépassement des attentes.",
-    icon: "🏆"
+    title: "Education & Leadership",
+    desc: "B.Sc. Information Technology (Pursuing, Expected 2028, SGPA: 8.04 Sem 1 & 2) at Bunts Sangha's Anna Leela College & Codex Documentation Head.",
+    icon: "🎓"
   }
 };
 
@@ -233,10 +233,6 @@ export default function About() {
 
     const interactables = [];
 
-    // LOAD EXPERT PHOTO AS PNG
-    const textureLoader = new THREE.TextureLoader();
-    const photoTexture = textureLoader.load('/mehdi photo professionel.png');
-
     const mats = {
       wood: new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.8, name: "wood" }),
       woodEdge: new THREE.MeshStandardMaterial({ color: 0x4a332a, roughness: 0.9 }),
@@ -244,8 +240,8 @@ export default function About() {
       darkSilver: new THREE.MeshStandardMaterial({ color: 0x808080, metalness: 0.6, roughness: 0.5 }),
       dark: new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.7 }),
       screen: new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.2 }),
-      screenGlow: new THREE.MeshStandardMaterial({ color: 0x00f3ff, emissive: 0x004488, emissiveIntensity: 0.8 }),
-      photoScreen: new THREE.MeshStandardMaterial({ map: photoTexture, roughness: 0.2, emissive: 0x111111 }),
+      screenGlow: new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x059669, emissiveIntensity: 0.8 }),
+      photoScreen: new THREE.MeshStandardMaterial({ color: 0x0a101d, roughness: 0.2, emissive: 0x10b981, emissiveIntensity: 0.1 }),
       white: new THREE.MeshStandardMaterial({ color: 0xf3f4f6, roughness: 0.2 }),
       coffee: new THREE.MeshStandardMaterial({ color: 0x3b2818, roughness: 0.1 }),
       gold: new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.2 }),
@@ -586,7 +582,7 @@ export default function About() {
       <CanvasContainer ref={mountRef}></CanvasContainer>
       <UILayer>
         <HeaderBox>
-          <Badge>CV Interactif</Badge>
+          <Badge>About Me • B.Sc. IT (Pursuing, 2028)</Badge>
 
           <InfoContent className={isFading ? 'fade-out' : ''}>
             <TitleRow>

@@ -717,18 +717,18 @@ export default function Hero() {
 
   /* ── 12 Badges Config ── */
   const BADGES = [
-    { name: 'React', emoji: '⚛️', color: '#61DAFB', percent: '90%' },
-    { name: 'Next.js', emoji: '▲', color: '#a0a0a0', percent: '85%' },
-    { name: 'Node.js', emoji: '🟢', color: '#68A063', percent: '80%' },
-    { name: 'Firebase', emoji: '🔥', color: '#FFCA28', percent: '85%' },
-    { name: 'PostgreSQL', emoji: '🐘', color: '#336791', percent: '75%' },
-    { name: 'MySQL', emoji: '🐬', color: '#4479A1', percent: '80%' },
-    { name: 'PHP', emoji: '🟣', color: '#777BB4', percent: '70%' },
-    { name: 'Python', emoji: '🐍', color: '#3776AB', percent: '65%' },
-    { name: 'styled-comp.', emoji: '💅', color: '#DB7093', percent: '90%' },
-    { name: 'REST API', emoji: '🔌', color: '#009688', percent: '95%' },
-    { name: 'Three.js', emoji: '📐', color: '#000000', percent: '50%' },
-    { name: 'GSAP', emoji: '✨', color: '#88CE02', percent: '80%' },
+    { name: 'Python', emoji: '🐍', color: '#3776AB', percent: '90%' },
+    { name: 'SQL', emoji: '🐬', color: '#00758F', percent: '88%' },
+    { name: 'Power BI', emoji: '📊', color: '#F2C811', percent: '88%' },
+    { name: 'Pandas', emoji: '🐼', color: '#150458', percent: '88%' },
+    { name: 'Scikit-learn', emoji: '🤖', color: '#F7931E', percent: '84%' },
+    { name: 'Excel', emoji: '📈', color: '#217346', percent: '88%' },
+    { name: 'MySQL', emoji: '🗄️', color: '#4479A1', percent: '86%' },
+    { name: 'DAX', emoji: '⚡', color: '#F59E0B', percent: '82%' },
+    { name: 'EDA', emoji: '🔍', color: '#10B981', percent: '90%' },
+    { name: 'Flask', emoji: '🌶️', color: '#000000', percent: '80%' },
+    { name: 'Matplotlib', emoji: '📉', color: '#11557C', percent: '85%' },
+    { name: 'Git', emoji: '🐙', color: '#F05032', percent: '85%' },
   ];
 
   /* ── Frame sequences ── */
@@ -1384,7 +1384,7 @@ export default function Hero() {
 
           <RoleWrapper>
             <RoleLine />
-            <RoleText>Full-Stack Developer</RoleText>
+            <RoleText>Data Analyst | Aspiring Data Scientist | Python Developer</RoleText>
           </RoleWrapper>
 
           <Subtitle>
@@ -1413,9 +1413,8 @@ export default function Hero() {
           </HeroActions>
 
           <SocialLinks>
-            <SocialIcon href="https://github.com/ElMehdiBekkous" target="_blank" rel="noopener noreferrer"><FiGithub /></SocialIcon>
-            <SocialIcon href="https://www.linkedin.com/in/el-mehdi-bekkous/" target="_blank" rel="noopener noreferrer"><FiLinkedin /></SocialIcon>
-            <SocialIcon href="https://www.instagram.com/mehdibekkousse/" target="_blank" rel="noopener noreferrer"><FiInstagram /></SocialIcon>
+            <SocialIcon href="https://github.com/szeeshanZ123" target="_blank" rel="noopener noreferrer" title="GitHub"><FiGithub /></SocialIcon>
+            <SocialIcon href="https://www.linkedin.com/in/zeeshan-shaikh-6b3a753a1" target="_blank" rel="noopener noreferrer" title="LinkedIn"><FiLinkedin /></SocialIcon>
           </SocialLinks>
         </TextColumn>
 
@@ -1469,7 +1468,7 @@ export default function Hero() {
             <AvatarFrame
               ref={frameImgRef}
               role="img"
-              aria-label="El Mehdi Bekkous 3D Avatar"
+              aria-label="Zeeshan Shaikh 3D Avatar"
             />
           </AvatarWrapper>
         </AvatarColumn>

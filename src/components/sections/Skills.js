@@ -1,17 +1,21 @@
+'use client';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import SectionWrapper from '@/components/SectionWrapper';
 import { useLanguage } from '@/context/LanguageContext';
-import { FiLayout, FiDatabase, FiPenTool, FiTerminal, FiCode, FiLayers } from 'react-icons/fi';
+import { skillCategories } from '@/data/skills';
+import {
+  FiDatabase, FiCode, FiLayers, FiCpu, FiTrendingUp,
+  FiTerminal, FiCheckCircle, FiServer, FiTool
+} from 'react-icons/fi';
 
 const BentoGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  grid-auto-rows: minmax(280px, auto);
   
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(12, 1fr);
   }
 `;
 
@@ -21,19 +25,27 @@ const BentoCardWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radii.xl};
   background: ${({ theme }) => theme.colors.glass};
   border: 1px solid ${({ theme }) => theme.colors.glassBorder};
-  transition: all 0.3s ease;
-  
-  /* Layout handling based on props */
-  ${({ $spanCols }) => $spanCols === 2 && `
-    @media (min-width: 768px) { grid-column: span 2 / span 2; }
+  backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  grid-column: span 12;
+
+  ${({ $cols }) => $cols === 7 && `
+    @media (min-width: 768px) { grid-column: span 7; }
   `}
-  ${({ $spanRows }) => $spanRows === 2 && `
-    @media (min-width: 768px) { grid-row: span 2 / span 2; }
+  ${({ $cols }) => $cols === 5 && `
+    @media (min-width: 768px) { grid-column: span 5; }
+  `}
+  ${({ $cols }) => $cols === 6 && `
+    @media (min-width: 768px) { grid-column: span 6; }
+  `}
+  ${({ $cols }) => $cols === 4 && `
+    @media (min-width: 768px) { grid-column: span 4; }
   `}
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.borderHover};
-    box-shadow: ${({ theme }) => theme.shadowLg};
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px ${({ theme }) => theme.colors.shadowLg};
   }
 `;
 
@@ -46,7 +58,7 @@ const Spotlight = styled.div`
   transition: opacity 0.3s ease;
   background: radial-gradient(
     600px circle at ${({ $x }) => $x}px ${({ $y }) => $y}px, 
-    ${({ theme }) => theme.colors.accent}26,
+    ${({ theme }) => theme.colors.accent}22,
     transparent 40%
   );
 
@@ -59,171 +71,97 @@ const CardContent = styled.div`
   position: relative;
   z-index: 10;
   height: 100%;
-  padding: 2rem;
+  padding: 2.25rem 2rem;
   display: flex;
   flex-direction: column;
-  
-  ${({ $flexRowMd }) => $flexRowMd && `
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-  `}
+`;
+
+const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 `;
 
 const IconWrapper = styled.div`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: ${({ theme }) => theme.radii.lg};
   background: ${({ theme }) => theme.colors.gradientSubtle};
   border: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
   color: ${({ theme }) => theme.colors.accent};
-  transition: transform 0.5s ease;
-  z-index: 20;
+  font-size: 1.5rem;
+  transition: transform 0.4s ease;
 
   ${BentoCardWrapper}:hover & {
-    transform: scale(1.1);
-  }
-
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    transform: scale(1.08) rotate(3deg);
   }
 `;
 
+const TitleBlock = styled.div`
+  flex: 1;
+`;
+
+const CardCategory = styled.span`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: ${({ theme }) => theme.colors.accent};
+  display: block;
+  margin-bottom: 0.2rem;
+`;
+
 const CardTitle = styled.h3`
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 0.75rem;
-  z-index: 20;
+  margin: 0;
 `;
 
 const CardDesc = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 0.9rem;
   line-height: 1.6;
-  margin-bottom: 2rem;
-  z-index: 20;
+  margin-bottom: 1.75rem;
 `;
 
-const TechTags = styled.div`
+const TechGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin-top: auto;
-  z-index: 20;
 `;
 
-const TechTag = styled.span`
-  padding: 0.35rem 0.75rem;
+const TechPill = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
   background: ${({ theme }) => theme.name === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.82rem;
   font-weight: 500;
   border-radius: ${({ theme }) => theme.radii.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
-`;
+  transition: all 0.25s ease;
 
-// -- Graphics --
-
-const FrontendGraphic = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    display: block;
-    position: absolute;
-    right: -5%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 400px;
-    height: 300px;
-    pointer-events: none;
-    perspective: 1000px;
+  svg {
+    font-size: 0.95rem;
+    color: ${({ $color, theme }) => $color || theme.colors.accent};
   }
 
-  /* Right-to-Left support */
-  [dir='rtl'] & {
-    right: auto;
-    left: -5%;
-  }
-
-  .perspective-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.7s ease-out;
-    transform-style: preserve-3d;
-  }
-
-  ${BentoCardWrapper}:hover .perspective-container {
-    transform: rotateX(15deg) rotateY(-20deg) scale(1.05);
-  }
-
-  [dir='rtl'] ${BentoCardWrapper}:hover .perspective-container {
-    transform: rotateX(15deg) rotateY(20deg) scale(1.05);
+  &:hover {
+    border-color: ${({ $color, theme }) => $color || theme.colors.accent};
+    background: ${({ $color }) => `${$color}15`};
+    transform: translateY(-2px);
   }
 `;
 
-const BackendGraphic = styled.div`
-  flex-grow: 1;
-  position: relative;
-  width: 100%;
-  margin-top: 1rem;
-  min-height: 160px;
-  opacity: 0.4;
-  transition: opacity 0.5s ease;
-  z-index: 0;
-
-  ${BentoCardWrapper}:hover & {
-    opacity: 1;
-  }
-`;
-
-const UIGraphic = styled.div`
-  display: none;
-  @media (min-width: 768px) {
-    display: flex;
-    width: 40%;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
-    height: 100%;
-    padding-left: 2rem;
-  }
-
-  [dir='rtl'] & {
-    justify-content: flex-start;
-    padding-left: 0;
-    padding-right: 2rem;
-  }
-
-  .circle-container {
-    width: 12rem;
-    height: 12rem;
-    background: rgba(30,41,59,0.3);
-    border-radius: 50%;
-    border: 1px solid rgba(51,65,85,0.5);
-    position: relative;
-    animation: spin 20s linear infinite;
-    transition: border-color 0.5s ease;
-  }
-
-  ${BentoCardWrapper}:hover .circle-container {
-    border-color: rgba(224,64,251,0.3); /* Theme accent color glow */
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-`;
-
-// -- Reusable Component --
-const BentoCard = ({ children, spanCols, spanRows, flexRowMd }) => {
+const BentoCard = ({ children, cols }) => {
   const cardRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -237,14 +175,13 @@ const BentoCard = ({ children, spanCols, spanRows, flexRowMd }) => {
   };
 
   return (
-    <BentoCardWrapper 
-      ref={cardRef} 
+    <BentoCardWrapper
+      ref={cardRef}
       onMouseMove={handleMouseMove}
-      $spanCols={spanCols}
-      $spanRows={spanRows}
+      $cols={cols}
     >
       <Spotlight $x={mousePosition.x} $y={mousePosition.y} />
-      <CardContent $flexRowMd={flexRowMd}>
+      <CardContent>
         {children}
       </CardContent>
     </BentoCardWrapper>
@@ -254,114 +191,144 @@ const BentoCard = ({ children, spanCols, spanRows, flexRowMd }) => {
 export default function Skills() {
   const { t } = useLanguage();
 
+  const progData = skillCategories.find(c => c.id === 'programming-data');
+  const analyticsData = skillCategories.find(c => c.id === 'data-analytics-bi');
+  const mlData = skillCategories.find(c => c.id === 'machine-learning');
+  const dbData = skillCategories.find(c => c.id === 'database');
+  const devData = skillCategories.find(c => c.id === 'development-tools');
+
   return (
-    <SectionWrapper id="skills" label={t('skills.label')} title={t('skills.title')} description={t('skills.description')}>
+    <SectionWrapper
+      id="skills"
+      label={t('skills.label')}
+      title={t('skills.title')}
+      description={t('skills.description')}
+    >
       <BentoGrid>
-        
-        {/* 1. Frontend Engineering (Spans 2 columns) */}
-        <BentoCard spanCols={2} flexRowMd>
-          <div style={{ flex: '1', zIndex: '20', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-            <IconWrapper><FiLayout /></IconWrapper>
-            <CardTitle>{t('skills.frontend')}</CardTitle>
-            <CardDesc style={{ maxWidth: '400px' }}>{t('skills.frontendDesc')}</CardDesc>
-            <TechTags>
-              {['React', 'Next.js', 'Tailwind', 'GSAP'].map(tech => (
-                <TechTag key={tech}>{tech}</TechTag>
-              ))}
-            </TechTags>
-          </div>
+        {/* 1. Programming & Data (Span 7) */}
+        {progData && (
+          <BentoCard cols={7}>
+            <HeaderRow>
+              <IconWrapper>{progData.icon}</IconWrapper>
+              <TitleBlock>
+                <CardCategory>Core Foundations</CardCategory>
+                <CardTitle>{progData.title}</CardTitle>
+              </TitleBlock>
+            </HeaderRow>
+            <CardDesc>{progData.description}</CardDesc>
+            <TechGrid>
+              {progData.skills.map((skill) => {
+                const IconComponent = skill.icon;
+                return (
+                  <TechPill key={skill.name} $color={skill.color}>
+                    {IconComponent && <IconComponent />}
+                    <span>{skill.name}</span>
+                  </TechPill>
+                );
+              })}
+            </TechGrid>
+          </BentoCard>
+        )}
 
-          <FrontendGraphic>
-            <div className="perspective-container">
-              {/* Back Window */}
-              <div style={{ position: 'absolute', inset: '2rem 1rem', background: 'rgba(30,30,40,0.8)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', overflow: 'hidden', transform: 'translateZ(-50px)' }}>
-                <div style={{ height: '1.5rem', background: 'rgba(20,20,30,1)', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', padding: '0 0.75rem', gap: '0.375rem' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4b5563' }} />
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4b5563' }} />
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4b5563' }} />
-                </div>
-                <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', opacity: 0.5 }}>
-                  <div style={{ height: '0.75rem', width: '75%', background: '#374151', borderRadius: '0.375rem' }} />
-                  <div style={{ height: '0.75rem', width: '50%', background: '#374151', borderRadius: '0.375rem' }} />
-                </div>
-              </div>
+        {/* 2. Machine Learning (Span 5) */}
+        {mlData && (
+          <BentoCard cols={5}>
+            <HeaderRow>
+              <IconWrapper>{mlData.icon}</IconWrapper>
+              <TitleBlock>
+                <CardCategory>Statistical AI</CardCategory>
+                <CardTitle>{mlData.title}</CardTitle>
+              </TitleBlock>
+            </HeaderRow>
+            <CardDesc>{mlData.description}</CardDesc>
+            <TechGrid>
+              {mlData.skills.map((skill) => {
+                const IconComponent = skill.icon;
+                return (
+                  <TechPill key={skill.name} $color={skill.color}>
+                    {IconComponent && <IconComponent />}
+                    <span>{skill.name}</span>
+                  </TechPill>
+                );
+              })}
+            </TechGrid>
+          </BentoCard>
+        )}
 
-              {/* Front Window */}
-              <div style={{ position: 'absolute', inset: '0.5rem', background: 'rgba(108,99,255,0.1)', backdropFilter: 'blur(12px)', border: '1px solid rgba(108,99,255,0.3)', borderRadius: '1rem', boxShadow: '0 0 40px rgba(108,99,255,0.2)', display: 'flex', flexDirection: 'column', overflow: 'hidden', transform: 'translateZ(40px)' }}>
-                <div style={{ height: '1.5rem', background: 'rgba(30,30,60,0.5)', borderBottom: '1px solid rgba(108,99,255,0.2)', display: 'flex', alignItems: 'center', padding: '0 0.75rem', gap: '0.375rem' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }} />
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b' }} />
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
-                </div>
-                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: 'rgba(108,99,255,0.2)', border: '1px solid rgba(108,99,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <FiCode size={14} color="#a5b4fc" />
-                    </div>
-                    <div style={{ height: '0.75rem', width: '6rem', background: 'rgba(108,99,255,0.2)', borderRadius: '0.375rem' }} />
-                  </div>
-                  <div style={{ flex: 1, width: '100%', background: 'rgba(15,23,42,0.5)', borderRadius: '0.5rem', border: '1px solid rgba(108,99,255,0.1)', padding: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <div style={{ height: '0.5rem', width: '100%', background: 'rgba(108,99,255,0.2)', borderRadius: '9999px' }} />
-                    <div style={{ height: '0.5rem', width: '80%', background: 'rgba(108,99,255,0.2)', borderRadius: '9999px' }} />
-                    <div style={{ height: '0.5rem', width: '66%', background: 'rgba(108,99,255,0.2)', borderRadius: '9999px' }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FrontendGraphic>
-        </BentoCard>
+        {/* 3. Data Analytics & BI (Span 12) */}
+        {analyticsData && (
+          <BentoCard cols={12}>
+            <HeaderRow>
+              <IconWrapper>{analyticsData.icon}</IconWrapper>
+              <TitleBlock>
+                <CardCategory>Business Intelligence & Dashboards</CardCategory>
+                <CardTitle>{analyticsData.title}</CardTitle>
+              </TitleBlock>
+            </HeaderRow>
+            <CardDesc>{analyticsData.description}</CardDesc>
+            <TechGrid>
+              {analyticsData.skills.map((skill) => {
+                const IconComponent = skill.icon;
+                return (
+                  <TechPill key={skill.name} $color={skill.color}>
+                    {IconComponent && <IconComponent />}
+                    <span>{skill.name}</span>
+                  </TechPill>
+                );
+              })}
+            </TechGrid>
+          </BentoCard>
+        )}
 
-        {/* 2. Backend Architecture (Spans 1 column, 2 rows) */}
-        <BentoCard spanCols={1} spanRows={2}>
-          <IconWrapper><FiDatabase /></IconWrapper>
-          <CardTitle>{t('skills.backend')}</CardTitle>
-          <CardDesc>{t('skills.backendDesc')}</CardDesc>
-          
-          <BackendGraphic>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-              {[1, 2, 3].map((node) => (
-                <div key={node} style={{ width: '100%', maxWidth: '180px', padding: '0.75rem', borderRadius: '0.5rem', background: 'rgba(30,41,59,0.5)', border: '1px solid rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <FiTerminal size={14} color="#10b981" />
-                  <div style={{ height: '6px', width: '100%', background: '#334155', borderRadius: '9999px', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', background: '#10b981', borderRadius: '9999px', width: `${(node / 3) * 100}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </BackendGraphic>
+        {/* 4. Database Management (Span 6) */}
+        {dbData && (
+          <BentoCard cols={6}>
+            <HeaderRow>
+              <IconWrapper>{dbData.icon}</IconWrapper>
+              <TitleBlock>
+                <CardCategory>Relational Architecture</CardCategory>
+                <CardTitle>{dbData.title}</CardTitle>
+              </TitleBlock>
+            </HeaderRow>
+            <CardDesc>{dbData.description}</CardDesc>
+            <TechGrid>
+              {dbData.skills.map((skill) => {
+                const IconComponent = skill.icon;
+                return (
+                  <TechPill key={skill.name} $color={skill.color}>
+                    {IconComponent && <IconComponent />}
+                    <span>{skill.name}</span>
+                  </TechPill>
+                );
+              })}
+            </TechGrid>
+          </BentoCard>
+        )}
 
-          <TechTags>
-            {['Node.js', 'PostgreSQL', 'Redis', 'AWS'].map(tech => (
-              <TechTag key={tech}>{tech}</TechTag>
-            ))}
-          </TechTags>
-        </BentoCard>
-
-        {/* 3. UI/UX Prototyping (Spans 2 columns) */}
-        <BentoCard spanCols={2} flexRowMd>
-          <div style={{ flex: '1', zIndex: '20', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
-            <IconWrapper><FiPenTool /></IconWrapper>
-            <CardTitle>{t('skills.devops')}</CardTitle>
-            <CardDesc style={{ maxWidth: '400px' }}>{t('skills.devopsDesc')}</CardDesc>
-            <TechTags>
-              {['Figma', 'Framer', 'Storybook'].map(tech => (
-                <TechTag key={tech}>{tech}</TechTag>
-              ))}
-            </TechTags>
-          </div>
-
-          <UIGraphic>
-            <div className="circle-container">
-              <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', width: '2rem', height: '2rem', borderRadius: '50%', background: 'rgba(224,64,251,0.2)', border: '1px solid rgba(224,64,251,0.5)', backdropFilter: 'blur(4px)' }} />
-              <div style={{ position: 'absolute', bottom: '25%', right: '-0.5rem', width: '1.5rem', height: '1.5rem', borderRadius: '50%', background: 'rgba(108,99,255,0.2)', border: '1px solid rgba(108,99,255,0.5)', backdropFilter: 'blur(4px)' }} />
-              <div style={{ position: 'absolute', bottom: '25%', left: '-0.5rem', width: '2.5rem', height: '2.5rem', borderRadius: '50%', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.5)', backdropFilter: 'blur(4px)' }} />
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#475569' }}>
-                <FiLayers size={40} />
-              </div>
-            </div>
-          </UIGraphic>
-        </BentoCard>
-
+        {/* 5. Development & Tools (Span 6) */}
+        {devData && (
+          <BentoCard cols={6}>
+            <HeaderRow>
+              <IconWrapper>{devData.icon}</IconWrapper>
+              <TitleBlock>
+                <CardCategory>Frameworks & Tooling</CardCategory>
+                <CardTitle>{devData.title}</CardTitle>
+              </TitleBlock>
+            </HeaderRow>
+            <CardDesc>{devData.description}</CardDesc>
+            <TechGrid>
+              {devData.skills.map((skill) => {
+                const IconComponent = skill.icon;
+                return (
+                  <TechPill key={skill.name} $color={skill.color}>
+                    {IconComponent && <IconComponent />}
+                    <span>{skill.name}</span>
+                  </TechPill>
+                );
+              })}
+            </TechGrid>
+          </BentoCard>
+        )}
       </BentoGrid>
     </SectionWrapper>
   );
