@@ -233,6 +233,11 @@ export default function About() {
 
     const interactables = [];
 
+    // LOAD ZEESHAN'S PROFESSIONAL PHOTO TEXTURE
+    const textureLoader = new THREE.TextureLoader();
+    const photoTexture = textureLoader.load('/ZeeshanShaikhProfessional.png');
+    photoTexture.colorSpace = THREE.SRGBColorSpace;
+
     const mats = {
       wood: new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.8, name: "wood" }),
       woodEdge: new THREE.MeshStandardMaterial({ color: 0x4a332a, roughness: 0.9 }),
@@ -241,7 +246,7 @@ export default function About() {
       dark: new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.7 }),
       screen: new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.2 }),
       screenGlow: new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x059669, emissiveIntensity: 0.8 }),
-      photoScreen: new THREE.MeshStandardMaterial({ color: 0x0a101d, roughness: 0.2, emissive: 0x10b981, emissiveIntensity: 0.1 }),
+      photoScreen: new THREE.MeshStandardMaterial({ map: photoTexture, roughness: 0.2, emissive: 0x111111 }),
       white: new THREE.MeshStandardMaterial({ color: 0xf3f4f6, roughness: 0.2 }),
       coffee: new THREE.MeshStandardMaterial({ color: 0x3b2818, roughness: 0.1 }),
       gold: new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.8, roughness: 0.2 }),

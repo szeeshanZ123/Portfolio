@@ -9,7 +9,7 @@ export const projects = [
         color: '#10B981',
         year: '2025',
         link: null, // [ADD LINK]
-        github: null, // [ADD LINK]
+        github: 'https://github.com/szeeshanZ123/academic-performance-examination-intelligence-system', // [ADD LINK]
         image: '/projects/academic_performance.jpg', // [ADD IMAGE]
     },
     {
@@ -36,7 +36,7 @@ export const projects = [
         year: '2025',
         link: null, // [ADD LINK]
         github: null, // [ADD LINK]
-        image: '/projects/food_delivery.jpg', // [ADD IMAGE]
+        image: null, // [ADD IMAGE]
     },
     {
         id: 4,
@@ -48,8 +48,8 @@ export const projects = [
         color: '#8B5CF6',
         year: '2025',
         link: null, // [ADD LINK]
-        github: null, // [ADD LINK]
-        image: '/projects/titanic_prediction.jpg', // [ADD IMAGE]
+        github: 'https://github.com/szeeshanZ123/Projects/blob/main/titanic.ipynb', // [ADD LINK]
+        image: null, // [ADD IMAGE]
     },
     {
         id: 5,
@@ -62,7 +62,7 @@ export const projects = [
         year: '2025',
         link: null, // [ADD LINK]
         github: null, // [ADD LINK]
-        image: '/projects/employee_db.jpg', // [ADD IMAGE]
+        image: null, // [ADD IMAGE]
     },
     {
         id: 6,

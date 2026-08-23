@@ -196,7 +196,7 @@ export default function Preloader() {
   if (gone) return null;
 
   return (
-    <Wrapper $fadeOut={fadingOut} $gone={gone}>
+    <Wrapper $fadeOut={fadingOut} $gone={gone} onClick={handleComplete} style={{ cursor: 'pointer' }}>
       <SvgContainer>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
           <defs>

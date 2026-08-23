@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import styled, { keyframes } from 'styled-components';
 import { useLanguage } from '@/context/LanguageContext';
 import useIsMobile from '@/lib/useIsMobile';
-import { FiArrowDown, FiGithub, FiLinkedin, FiInstagram } from 'react-icons/fi';
+import { FiArrowDown, FiGithub, FiLinkedin, FiInstagram, FiDownload } from 'react-icons/fi';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -1402,6 +1402,14 @@ export default function Hero() {
             >
               {t('hero.viewWork')} →
             </PrimaryBtn>
+            <SecondaryBtn
+              href="/Zeeshan_Shaikh_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Zeeshan_Shaikh_Resume.pdf"
+            >
+              <FiDownload /> Download CV
+            </SecondaryBtn>
             <SecondaryBtn
               href="#contact"
               onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}

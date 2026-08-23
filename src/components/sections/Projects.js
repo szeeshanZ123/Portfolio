@@ -259,6 +259,29 @@ const ImageInnerContainer = styled.div`
   background: radial-gradient(circle at 50% 40%, rgba(30, 41, 59, 0.8), #0a0a14);
 `;
 
+const ProjectImageWrapper = styled.div`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ${ImageWrapper}:hover & img {
+    transform: scale(1.03);
+  }
+`;
+
 const VisualGraphicWrapper = styled.div`
   position: absolute;
   inset: 0;
@@ -288,7 +311,7 @@ const IconBackdrop = styled.div`
 const GradientOverlay = styled.div`
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.15) 100%);
   z-index: 10;
   transition: opacity 0.4s;
   pointer-events: none;
@@ -413,6 +436,7 @@ export default function Projects() {
   const cursorRef = useRef(null);
 
   const [sectionHeight, setSectionHeight] = useState('400vh');
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
     const updateHeight = () => {
@@ -471,6 +495,15 @@ export default function Projects() {
 
         const slides = containerRef.current.querySelectorAll('.slide');
         slides.forEach((slide) => {
+          const img = slide.querySelector('.parallax-bg');
+          if (img) {
+            tl.to(img, {
+              x: "5%",
+              ease: "none",
+              duration: 0.95
+            }, 0.05);
+          }
+
           const titles = slide.querySelectorAll('.title-parallax');
           titles.forEach((title) => {
             tl.to(title, {
@@ -572,6 +605,7 @@ export default function Projects() {
           {projects.map((projet, index) => {
             const IconComp = ProjectIconMap[projet.id] || FiLayers;
             const hasLiveDemo = Boolean(projet.link);
+            const hasImage = Boolean(projet.image) && !imageErrors[projet.id];
 
             return (
               <Slide key={projet.id} className="slide" data-index={index}>
@@ -593,11 +627,26 @@ export default function Projects() {
                   </BrowserBar>
 
                   <ImageInnerContainer>
-                    <VisualGraphicWrapper $color={projet.color}>
-                      <IconBackdrop $color={projet.color}>
-                        <IconComp />
-                      </IconBackdrop>
-                    </VisualGraphicWrapper>
+                    {hasImage ? (
+                      <ProjectImageWrapper className="parallax-bg">
+                        <Image
+                          src={projet.image}
+                          alt={`Screenshot of ${projet.title}`}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 768px) 80vw, 45vw"
+                          style={{ objectFit: 'cover', objectPosition: 'top' }}
+                          priority={index === 0}
+                          onError={() => setImageErrors(prev => ({ ...prev, [projet.id]: true }))}
+                        />
+                      </ProjectImageWrapper>
+                    ) : (
+                      <VisualGraphicWrapper $color={projet.color} className="parallax-bg">
+                        <IconBackdrop $color={projet.color}>
+                          <IconComp />
+                        </IconBackdrop>
+                      </VisualGraphicWrapper>
+                    )}
 
                     <GradientOverlay />
 
@@ -616,11 +665,23 @@ export default function Projects() {
                         ))}
                       </TechTagsRow>
 
-                      {hasLiveDemo && (
+                      {(hasLiveDemo || Boolean(projet.github)) && (
                         <ActionButtonsRow>
-                          <ActionBtn href={projet.link} target="_blank" rel="noopener noreferrer">
-                            <FiExternalLink /> Live Demo
-                          </ActionBtn>
+                          {hasLiveDemo && (
+                            <ActionBtn href={projet.link} target="_blank" rel="noopener noreferrer">
+                              <FiExternalLink /> Live Demo
+                            </ActionBtn>
+                          )}
+                          {Boolean(projet.github) && (
+                            <ActionBtn
+                              href={projet.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)' }}
+                            >
+                              <FiGithub /> Source Code
+                            </ActionBtn>
+                          )}
                         </ActionButtonsRow>
                       )}
                     </ProjectInfo>

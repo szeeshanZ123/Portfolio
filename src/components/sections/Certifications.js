@@ -215,9 +215,31 @@ const CloseBtn = styled.button`
   }
 `;
 
+const CertificateImageContainer = styled.div`
+  width: 100%;
+  max-height: 460px;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1.5rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 460px;
+    object-fit: contain;
+    border-radius: ${({ theme }) => theme.radii.md};
+  }
+`;
+
 const CertificatePreviewPlaceholder = styled.div`
   width: 100%;
-  height: 300px;
+  height: 280px;
   border-radius: ${({ theme }) => theme.radii.lg};
   background: radial-gradient(circle at 50% 40%, rgba(30, 41, 59, 0.8), #0a0a14);
   border: 1px dashed ${({ theme }) => theme.colors.accent}60;
@@ -246,6 +268,7 @@ export default function Certifications() {
   const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedCert, setSelectedCert] = useState(null);
+  const [certImgErrors, setCertImgErrors] = useState({});
 
   const filteredCerts = activeCategory === 'all'
     ? certifications
@@ -317,14 +340,24 @@ export default function Certifications() {
               <FiLayers /> {selectedCert.categoryLabel}
             </CategoryTag>
 
-            <CertificatePreviewPlaceholder>
-              <FiAward />
-              <PlaceholderText>
-                Official Credential Image
-                <br />
-                <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>[ADD IMAGE / CERTIFICATE PREVIEW]</span>
-              </PlaceholderText>
-            </CertificatePreviewPlaceholder>
+            {selectedCert.image && !certImgErrors[selectedCert.id] ? (
+              <CertificateImageContainer>
+                <img
+                  src={selectedCert.image}
+                  alt={selectedCert.title}
+                  onError={() => setCertImgErrors(prev => ({ ...prev, [selectedCert.id]: true }))}
+                />
+              </CertificateImageContainer>
+            ) : (
+              <CertificatePreviewPlaceholder>
+                <FiAward />
+                <PlaceholderText>
+                  Official Credential Preview
+                  <br />
+                  <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>[Certificate file: {selectedCert.image}]</span>
+                </PlaceholderText>
+              </CertificatePreviewPlaceholder>
+            )}
 
             <TopicList>
               {selectedCert.topics.map((topic) => (

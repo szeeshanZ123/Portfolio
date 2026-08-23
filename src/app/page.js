@@ -1,22 +1,19 @@
 'use client';
 import { useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Preloader from '@/components/Preloader';
 import ScrollProgress from '@/components/ScrollProgress';
-
-// Dynamically import heavy components so the Preloader can show instantly while they download in the background
-const Navbar = dynamic(() => import('@/components/sections/Navbar'), { ssr: false });
-const Hero = dynamic(() => import('@/components/sections/Hero'), { ssr: false });
-const About = dynamic(() => import('@/components/sections/About'), { ssr: false });
-const Skills = dynamic(() => import('@/components/sections/Skills'), { ssr: false });
-const Projects = dynamic(() => import('@/components/sections/Projects'), { ssr: false });
-const Experience = dynamic(() => import('@/components/sections/Experience'), { ssr: false });
-const Certifications = dynamic(() => import('@/components/sections/Certifications'), { ssr: false });
-const Achievements = dynamic(() => import('@/components/sections/Achievements'), { ssr: false });
-const Contact = dynamic(() => import('@/components/sections/Contact'), { ssr: false });
-const Footer = dynamic(() => import('@/components/sections/Footer'), { ssr: false });
+import Navbar from '@/components/sections/Navbar';
+import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
+import Skills from '@/components/sections/Skills';
+import Projects from '@/components/sections/Projects';
+import Experience from '@/components/sections/Experience';
+import Certifications from '@/components/sections/Certifications';
+import Achievements from '@/components/sections/Achievements';
+import Contact from '@/components/sections/Contact';
+import Footer from '@/components/sections/Footer';
 
 export default function Home() {
     useEffect(() => {
@@ -32,7 +29,9 @@ export default function Home() {
             }, 300);
         });
 
-        observer.observe(document.body);
+        if (typeof document !== 'undefined' && document.body) {
+            observer.observe(document.body);
+        }
 
         return () => {
             observer.disconnect();

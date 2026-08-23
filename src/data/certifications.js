@@ -74,6 +74,16 @@ export const certifications = [
         categoryLabel: 'Data Science & Python',
         badgeColor: '#1F70C1',
         topics: ['Matplotlib', 'Seaborn', 'Visual Storytelling', 'Python'],
-        image: '/certificates/data_vis_python_ibm.jpg', // [ADD IMAGE]
+        image: '/certificates/data_vis_python_ibm.jpg',
+    },
+    {
+        id: 8,
+        title: 'Microsoft Certified: Security, Compliance, and Identity Fundamentals',
+        issuer: 'Microsoft',
+        category: 'ai-industry',
+        categoryLabel: 'Security & Cloud Compliance',
+        badgeColor: '#0078D4',
+        topics: ['Security & Compliance', 'Identity Fundamentals', 'Cloud Protection', 'Microsoft SC-900'],
+        image: '/certificates/microsoft_cert.jpg',
     },
 ];
