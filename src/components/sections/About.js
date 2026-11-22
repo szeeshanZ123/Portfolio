@@ -123,7 +123,7 @@ const CardDesc = styled.p`
 const contentData = {
   default: {
     title: "Analytical Workspace",
-    desc: "B.Sc. IT student with practical experience in Data Analytics, Python, SQL, Power BI, and Machine Learning. Hover or tap items to explore.",
+    desc: "B.Sc. IT student with practical experience in Data Analytics, Python, SQL, Power BI, and Machine Learning. Google Student Ambassador & AI Intern. Hover or tap items to explore.",
     icon: "📊"
   },
   laptop: {
@@ -132,8 +132,8 @@ const contentData = {
     icon: "🐍"
   },
   monitor: {
-    title: "Machine Learning & Research",
-    desc: "Predictive model engineering, regression and classification pipelines, and feature optimization using Scikit-learn.",
+    title: "Machine Learning & AI Research",
+    desc: "Predictive model engineering, computer vision, regression and classification pipelines, and feature optimization using Scikit-learn and Python.",
     icon: "🤖"
   },
   coffee: {
@@ -142,8 +142,8 @@ const contentData = {
     icon: "☕"
   },
   trophy: {
-    title: "Education & Leadership",
-    desc: "B.Sc. Information Technology (Pursuing, Expected 2028, SGPA: 8.04 Sem 1 & 2) at Bunts Sangha's Anna Leela College & Codex Documentation Head.",
+    title: "Leadership & Community",
+    desc: "Google Student Ambassador, Bunts Sangha's Anna Leela College B.Sc. IT (Pursuing 2028, SGPA: 8.04), and Codex Documentation Head.",
     icon: "🎓"
   }
 };

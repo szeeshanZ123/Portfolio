@@ -243,6 +243,11 @@ export default function Experience() {
                     <MetaItem>
                       <FiCalendar /> {lead.period}
                     </MetaItem>
+                    {lead.location && (
+                      <MetaItem>
+                        <FiMapPin /> {lead.location} {lead.workType ? `(${lead.workType})` : ''}
+                      </MetaItem>
+                    )}
                   </MetaTags>
                 </CardHeader>
                 <ResponsibilitiesList>

@@ -9,7 +9,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   FiExternalLink, FiGithub, FiLayers, FiDatabase,
-  FiBarChart2, FiCpu, FiCode, FiTrendingUp, FiServer
+  FiBarChart2, FiCpu, FiCode, FiTrendingUp, FiServer, FiEye, FiShield
 } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -420,12 +420,14 @@ const ActionBtn = styled.a`
 `;
 
 const ProjectIconMap = {
-  1: FiBarChart2, // Academic Performance
-  2: FiTrendingUp, // UPI Dashboard
-  3: FiDatabase, // Food Delivery
-  4: FiCpu, // Titanic
-  5: FiServer, // Employee DB
+  1: FiEye, // Vision Lens
+  2: FiShield, // VisionGuard AI
+  3: FiBarChart2, // Academic Performance
+  4: FiTrendingUp, // UPI Dashboard
+  5: FiDatabase, // Food Delivery
   6: FiCode, // Habit Tracker
+  7: FiCpu, // Titanic
+  8: FiServer, // Employee DB
 };
 
 export default function Projects() {

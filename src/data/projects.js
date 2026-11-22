@@ -1,6 +1,32 @@
 export const projects = [
     {
         id: 1,
+        title: 'Vision Lens',
+        subtitle: 'AI Spatial Visual Assistance & Voice Lens',
+        category: 'AI & Assistive Tech',
+        description: 'AI-powered spatial visual assistance with real-time text reading (OCR), continuous environmental guidance, and conversational voice control. Deployed with an Android APK (v1.2.0) and a live in-browser web application.',
+        tech: ['AI / Computer Vision', 'OCR', 'Voice Control', 'Android (APK)', 'Next.js'],
+        color: '#0EA5E9',
+        year: '2026',
+        link: 'https://visionlens-gamma.vercel.app/download',
+        github: null,
+        image: '/projects/vision_lens.jpg',
+    },
+    {
+        id: 2,
+        title: 'VisionGuard AI',
+        subtitle: 'Civil & Infrastructure Vision',
+        category: 'Computer Vision & AI',
+        description: 'AI-powered municipal infrastructure inspection platform. Assesses roadway defects and structural cracks with computer vision, organizing verified photographic evidence into ready-to-dispatch repair work orders with defect mapping.',
+        tech: ['Computer Vision', 'Defect Mapping', 'Python', 'Web Services', 'Render'],
+        color: '#3B82F6',
+        year: '2026',
+        link: 'https://visionguard-ttyp.onrender.com',
+        github: null,
+        image: '/projects/visionguard_ai.jpg',
+    },
+    {
+        id: 3,
         title: 'Academic Performance & Examination Intelligence System',
         subtitle: 'Academic Analytics & Performance System',
         category: 'Data Analytics & Web',
@@ -8,12 +34,12 @@ export const projects = [
         tech: ['Python', 'Flask', 'Pandas', 'Matplotlib'],
         color: '#10B981',
         year: '2025',
-        link: null, // [ADD LINK]
-        github: 'https://github.com/szeeshanZ123/academic-performance-examination-intelligence-system', // [ADD LINK]
-        image: '/projects/academic_performance.jpg', // [ADD IMAGE]
+        link: null,
+        github: 'https://github.com/szeeshanZ123/academic-performance-examination-intelligence-system',
+        image: '/projects/academic_performance.jpg',
     },
     {
-        id: 2,
+        id: 4,
         title: 'UPI Transaction Analytics Dashboard',
         subtitle: 'Interactive Financial Dashboard',
         category: 'Business Intelligence',
@@ -21,12 +47,12 @@ export const projects = [
         tech: ['Power BI', 'Data Visualization', 'DAX'],
         color: '#0EA5E9',
         year: '2025',
-        link: null, // [ADD LINK]
-        github: null, // [ADD LINK]
-        image: '/projects/upi_dashboard.jpg', // [ADD IMAGE]
+        link: null,
+        github: null,
+        image: '/projects/upi_dashboard.jpg',
     },
     {
-        id: 3,
+        id: 5,
         title: 'Food Delivery Analytics Dashboard',
         subtitle: 'Business Metrics & Revenue Analysis',
         category: 'Business Intelligence',
@@ -34,35 +60,9 @@ export const projects = [
         tech: ['Power BI', 'DAX', 'Excel'],
         color: '#F59E0B',
         year: '2025',
-        link: null, // [ADD LINK]
-        github: null, // [ADD LINK]
-        image: null, // [ADD IMAGE]
-    },
-    {
-        id: 4,
-        title: 'Titanic Survival Prediction',
-        subtitle: 'Machine Learning Classification Model',
-        category: 'Machine Learning',
-        description: 'Built a Logistic Regression classification model predicting passenger survival with approximately 91% accuracy.',
-        tech: ['Python', 'Pandas', 'Scikit-learn'],
-        color: '#8B5CF6',
-        year: '2025',
-        link: null, // [ADD LINK]
-        github: 'https://github.com/szeeshanZ123/Projects/blob/main/titanic.ipynb', // [ADD LINK]
-        image: null, // [ADD IMAGE]
-    },
-    {
-        id: 5,
-        title: 'Employee Database Management System',
-        subtitle: 'Relational Database Architecture & Analysis',
-        category: 'Database & SQL',
-        description: 'Designed a relational employee database using Joins, Subqueries, CTEs, Aggregations, and Window Functions for workforce analysis.',
-        tech: ['SQL', 'MySQL', 'Relational DB'],
-        color: '#06B6D4',
-        year: '2025',
-        link: null, // [ADD LINK]
-        github: null, // [ADD LINK]
-        image: null, // [ADD IMAGE]
+        link: null,
+        github: null,
+        image: null,
     },
     {
         id: 6,
@@ -74,7 +74,33 @@ export const projects = [
         color: '#EC4899',
         year: '2025',
         link: 'https://habit-tracker-tawny-three.vercel.app/',
-        github: null, // [ADD LINK]
-        image: '/projects/habit_tracker.jpg', // [ADD IMAGE]
+        github: null,
+        image: '/projects/habit_tracker.jpg',
+    },
+    {
+        id: 7,
+        title: 'Titanic Survival Prediction',
+        subtitle: 'Machine Learning Classification Model',
+        category: 'Machine Learning',
+        description: 'Built a Logistic Regression classification model predicting passenger survival with approximately 91% accuracy.',
+        tech: ['Python', 'Pandas', 'Scikit-learn'],
+        color: '#8B5CF6',
+        year: '2025',
+        link: null,
+        github: 'https://github.com/szeeshanZ123/Projects/blob/main/titanic.ipynb',
+        image: null,
+    },
+    {
+        id: 8,
+        title: 'Employee Database Management System',
+        subtitle: 'Relational Database Architecture & Analysis',
+        category: 'Database & SQL',
+        description: 'Designed a relational employee database using Joins, Subqueries, CTEs, Aggregations, and Window Functions for workforce analysis.',
+        tech: ['SQL', 'MySQL', 'Relational DB'],
+        color: '#06B6D4',
+        year: '2025',
+        link: null,
+        github: null,
+        image: null,
     }
 ];

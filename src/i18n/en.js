@@ -38,8 +38,8 @@ export const en = {
         college: "Bunts Sangha's Anna Leela College of Commerce & Economics, Mumbai",
         graduation: 'Expected Graduation: 2028',
         cgpa: 'SGPA: 8.04 (Sem 1 & 2)',
-        bio1: "I am a B.Sc. Information Technology student with hands-on experience in Data Analytics, Data Science, Python, SQL, Power BI, and Machine Learning.",
-        bio2: "I specialize in data cleaning, exploratory data analysis (EDA), dashboard development, relational database modeling, and analytical workflows. I have completed internships at Imarticus Learning and CodSoft, and serve as Documentation Head of the college technical committee Codex.",
+        bio1: "I am a B.Sc. Information Technology student with hands-on experience in Data Analytics, Data Science, Python, SQL, Power BI, Machine Learning, and Computer Vision.",
+        bio2: "I specialize in data cleaning, exploratory data analysis (EDA), dashboard development, relational database modeling, and analytical workflows. I have completed internships at Imarticus Learning, CodSoft, and InAmigos Foundation (IAF), serve as a Google Student Ambassador, and lead technical documentation as Documentation Head for Codex.",
         downloadCv: '📄 Download Resume',
     },
 
