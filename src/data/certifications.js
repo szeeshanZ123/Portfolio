@@ -1,8 +1,9 @@
 export const certificationCategories = [
-    { id: 'all', name: 'All Certifications' },
+    { id: 'all', name: 'All Credentials' },
     { id: 'data-science-python', name: 'Data Science & Python' },
     { id: 'data-analytics-bi', name: 'Data Analytics & BI' },
     { id: 'ai-industry', name: 'AI & Industry' },
+    { id: 'hackathons-competitions', name: 'Hackathons & Competitions' },
 ];
 
 export const certifications = [
@@ -14,7 +15,7 @@ export const certifications = [
         categoryLabel: 'Data Science & Python',
         badgeColor: '#1F70C1',
         topics: ['Python', 'Data Science', 'Data Analysis', 'Statistical Modeling'],
-        image: '/certificates/applied_data_science_ibm.jpg', // [ADD IMAGE]
+        image: '/certificates/applied_data_science_ibm.jpg',
     },
     {
         id: 2,
@@ -24,7 +25,7 @@ export const certifications = [
         categoryLabel: 'Data Analytics & BI',
         badgeColor: '#0078D4',
         topics: ['Data Analysis', 'Business Intelligence', 'Analytics Foundations'],
-        image: '/certificates/career_essentials_microsoft.jpg', // [ADD IMAGE]
+        image: '/certificates/career_essentials_microsoft.jpg',
     },
     {
         id: 3,
@@ -34,7 +35,7 @@ export const certifications = [
         categoryLabel: 'Data Analytics & BI',
         badgeColor: '#F2C811',
         topics: ['Power BI', 'DAX', 'Data Modeling', 'Dashboards'],
-        image: '/certificates/learning_power_bi.jpg', // [ADD IMAGE]
+        image: '/certificates/learning_power_bi.jpg',
     },
     {
         id: 4,
@@ -44,7 +45,7 @@ export const certifications = [
         categoryLabel: 'Data Science & Python',
         badgeColor: '#1F70C1',
         topics: ['Python', 'Pandas', 'NumPy', 'Data Processing'],
-        image: '/certificates/python_data_science_ibm.jpg', // [ADD IMAGE]
+        image: '/certificates/python_data_science_ibm.jpg',
     },
     {
         id: 5,
@@ -54,7 +55,7 @@ export const certifications = [
         categoryLabel: 'Data Analytics & BI',
         badgeColor: '#00758F',
         topics: ['SQL', 'Querying', 'Data Investigation', 'Aggregations'],
-        image: '/certificates/investigate_with_sql.jpg', // [ADD IMAGE]
+        image: '/certificates/investigate_with_sql.jpg',
     },
     {
         id: 6,
@@ -64,7 +65,7 @@ export const certifications = [
         categoryLabel: 'AI & Industry',
         badgeColor: '#6366F1',
         topics: ['Generative AI', 'Data Analytics', 'Business Consulting', 'Simulation'],
-        image: '/certificates/genai_tata_forage.jpg', // [ADD IMAGE]
+        image: '/certificates/genai_tata_forage.jpg',
     },
     {
         id: 7,
@@ -85,5 +86,35 @@ export const certifications = [
         badgeColor: '#0078D4',
         topics: ['Security & Compliance', 'Identity Fundamentals', 'Cloud Protection', 'Microsoft SC-900'],
         image: '/certificates/microsoft_cert.jpg',
+    },
+    {
+        id: 9,
+        title: 'Vision Lens: Multimodal AI (Poster Presentation)',
+        issuer: 'VSIT (Vidyalankar School of Information Technology)',
+        category: 'hackathons-competitions',
+        categoryLabel: 'Poster Making & Presentation',
+        badgeColor: '#8B5CF6',
+        topics: ['Multimodal AI', 'Computer Vision', 'Poster Presentation', 'Cybersecurity Symposium', 'VSIT'],
+        image: '/certificates/vsit_poster_presentation.jpg',
+    },
+    {
+        id: 10,
+        title: 'ZETTAABYTE 5.0 — The Coded Seas',
+        issuer: 'DevClub TRCAC (Thakur Ramnarayan College)',
+        category: 'hackathons-competitions',
+        categoryLabel: 'Coding Competition & Hackathon',
+        badgeColor: '#F59E0B',
+        topics: ['Coding Competition', 'Algorithms', 'Problem Solving', 'DevClub TRCAC', 'Fusion Carnival 3.0'],
+        image: '/certificates/trcac_zettaabyte_hackathon.jpg',
+    },
+    {
+        id: 11,
+        title: 'NEURA X National Hackathon',
+        issuer: 'Propcare NW & Unstop',
+        category: 'hackathons-competitions',
+        categoryLabel: 'Hackathons & Competitions',
+        badgeColor: '#0EA5E9',
+        topics: ['National Hackathon', 'Team CodeCatalyst2.0', 'Unstop', 'AI Innovation', 'Rapid Prototyping'],
+        image: '/certificates/unstop_neura_x_hackathon.jpg',
     },
 ];

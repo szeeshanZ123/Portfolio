@@ -93,9 +93,9 @@ export const en = {
 
     // Achievements
     achievements: {
-        label: 'Engagement',
-        title: 'Achievements & Activities',
-        description: 'Technical competitions, security workshops, and leadership contributions.',
+        label: 'Engagement & Competitions',
+        title: 'Hackathons, Poster & Activities',
+        description: 'Competitive hackathons, research poster presentations, technical workshops, and leadership contributions.',
     },
 
     // Contact
